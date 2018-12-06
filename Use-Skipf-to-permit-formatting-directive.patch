@@ -1,0 +1,25 @@
+From f654421e98af5d85e6ccbede3b511871d06496c5 Mon Sep 17 00:00:00 2001
+From: Carl George <carl@george.computer>
+Date: Thu, 15 Nov 2018 16:18:03 -0600
+Subject: [PATCH] Use Skipf to permit formatting directive
+
+https://golang.org/pkg/testing/#T.Skipf
+
+fixes #4
+---
+ memcache_test.go | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/memcache_test.go b/memcache_test.go
+index 1be437c..8e3eab6 100644
+--- a/memcache_test.go
++++ b/memcache_test.go
+@@ -42,7 +42,7 @@ func (c *Client) totalOpen() int {
+ func newLocalhostServer(tb testing.TB) *Client {
+ 	c, err := net.Dial("tcp", testServer)
+ 	if err != nil {
+-		tb.Skip("skipping test; no server running at %s", testServer)
++		tb.Skipf("skipping test; no server running at %s", testServer)
+ 		return nil
+ 	}
+ 	c.Write([]byte("flush_all\r\n"))
